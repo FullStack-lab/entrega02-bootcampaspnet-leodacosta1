@@ -10,9 +10,8 @@ namespace leodacosta02.Controllers.CommentController
     public class CommentController : Controller
     {
         // GET: Comment
-        public ActionResult Index()
-        {
-            List<CommentModel> comments = new List<CommentModel>
+
+        List<CommentModel> comments = new List<CommentModel>
             {
                 new CommentModel
                 {
@@ -47,7 +46,36 @@ namespace leodacosta02.Controllers.CommentController
                 },
 
             };
+        public ActionResult Index()
+        {
             return View(comments);
+        }
+        // página pra criação de novo comentário
+        public ActionResult Create()
+        {
+            return View(new CommentModel());
+        }
+
+        // Método POST: Criação de novo comentário / post
+        [HttpPost]
+        public ActionResult Create(CommentModel comment)
+        {
+            if (ModelState.IsValid)
+            {
+                // Confere se a lista está vazia antes de usar .Max()
+                if (comments.Count == 0)
+                {
+                    comment.CommentId = 1; // Se a lista está vazia, atribui o valor de 1 para um CommentId de um comentário
+                }
+                else
+                {
+                    comment.CommentId = comments.Max(t => t.CommentId) + 1; // Incrementa em 1 com base no valor máximo da lista
+                }
+                comment.CreatedAt = DateTime.Now;
+                comments.Add(comment);
+                return RedirectToAction("Index");
+            }
+            return View(comment);
         }
     }
 }
