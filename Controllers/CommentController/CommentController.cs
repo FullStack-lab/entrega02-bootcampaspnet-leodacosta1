@@ -17,7 +17,6 @@ namespace leodacosta02.Controllers.CommentController
                 new CommentModel
                 {
                     CommentId = 1,
-                    RepliesCount = 1,
                     User = "John",
                     Text = "This is a comment.",
                     CreatedAt = new DateTime(2024, 12, 11, 15, 23, 0),
@@ -26,9 +25,15 @@ namespace leodacosta02.Controllers.CommentController
                         new CommentModel
                         {
                             CommentId = 101,
-                            RepliesCount = 0,
                             User = "Johnson",
                             Text = "This is a reply.",
+                            CreatedAt = DateTime.Now
+                        },
+                        new CommentModel
+                        {
+                            CommentId = 102,
+                            User = "Jackson",
+                            Text = "This is a 2nd reply.",
                             CreatedAt = DateTime.Now
                         }
                     }
@@ -36,7 +41,6 @@ namespace leodacosta02.Controllers.CommentController
                 new CommentModel
                 {
                     CommentId = 1,
-                    RepliesCount = 1,
                     User = "Jack",
                     Text = "This is a comment.",
                     CreatedAt = new DateTime(2024, 12, 11, 14, 23, 0)

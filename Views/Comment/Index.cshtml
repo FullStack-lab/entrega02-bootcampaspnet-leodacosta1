@@ -10,6 +10,7 @@
                     <h5 class="fw-bold">@comment.User</h5>
                     <p class="mb-1">@comment.Text</p>
                     <small class="text-muted">@comment.CreatedAt.ToString("g")</small>
+                    <p class="mb-1 text-muted">Replies: @comment.RepliesCount</p>
                 </div>
                 <div class="d-flex align-items-center gap-2 m-2">
                     <a href="#" class="text-muted" title="Reply">
@@ -60,5 +61,6 @@
         </li>
     }
 </ul>
+
 
 
