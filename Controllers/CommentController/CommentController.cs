@@ -11,7 +11,7 @@ namespace leodacosta02.Controllers.CommentController
     {
         // GET: Comment
 
-        List<CommentModel> comments = new List<CommentModel>
+         private static List<CommentModel> comments = new List<CommentModel>
             {
                 new CommentModel
                 {

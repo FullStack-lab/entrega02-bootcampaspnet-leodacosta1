@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<leodacosta02.Models.CommentModel.CommentModel>
 
-<a href="#" class="btn btn-primary mb-3">Create new comment</a>
+<a href="@Url.Action("Create", "Comment")" class="btn btn-primary mb-3">Create new comment</a>
 <ul class="list-group">
     @foreach (var comment in Model)
     {
