@@ -62,17 +62,25 @@ namespace leodacosta02.Controllers.CommentController
         {
             if (ModelState.IsValid)
             {
-                // Confere se a lista está vazia antes de usar .Max()
-                if (comments.Count == 0)
+                if (comment.ParentCommentId == 0) // se for igual a zero, não é um reply, e o código executa o post normal
                 {
-                    comment.CommentId = 1; // Se a lista está vazia, atribui o valor de 1 para um CommentId de um comentário
+                    // Confere se a lista está vazia antes de usar .Max()
+                    if (comments.Count == 0)
+                    {
+                        comment.CommentId = 1; // Se a lista está vazia, atribui o valor de 1 para um CommentId de um comentário
+                    }
+                    else
+                    {
+                        comment.CommentId = comments.Max(t => t.CommentId) + 1; // Incrementa em 1 com base no valor máximo da lista
+                    }
+                    comment.CreatedAt = DateTime.Now;
+                    comments.Add(comment);
                 }
                 else
                 {
-                    comment.CommentId = comments.Max(t => t.CommentId) + 1; // Incrementa em 1 com base no valor máximo da lista
+                    // Redireciona para o método AddReply se for um reply
+                    return RedirectToAction("AddReply", new { parentCommentId = comment.ParentCommentId, replyText = comment.Text, replyUser = comment.User });
                 }
-                comment.CreatedAt = DateTime.Now;
-                comments.Add(comment);
                 return RedirectToAction("Index");
             }
             return View(comment);
