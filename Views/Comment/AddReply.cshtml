@@ -1,0 +1,28 @@
+﻿@model leodacosta02.Models.CommentModel.CommentModel
+
+<div class="container mt-5">
+    <h2 class="text-center">Criar nova resposta</h2>
+
+    <form asp-action="AddReply" method="post" class="mt-4">
+        <div class="form-group" align="center">
+            @Html.HiddenFor(model => model.ParentCommentId)
+            @Html.TextBoxFor(model => model.User, new
+                {
+                    @class = "form-control",
+                    placeholder = "Seu nome"
+                })
+            @Html.TextAreaFor(model => model.Text, new
+                {
+                    @class = "form-control",
+                    maxlength = "500",
+                    placeholder = "Comentário (máx. 500 caracteres)"
+                })
+        </div>
+        <div class="mt-4" align="center">
+            <button type="submit" class="btn btn-primary">Postar comentário</button>
+            <a href="@Url.Action("Index", "Comment")" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+

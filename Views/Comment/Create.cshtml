@@ -1,27 +1,36 @@
 ﻿@model leodacosta02.Models.CommentModel.CommentModel
 
-<div class="container mt-5">
-    <h2 class="text-center">Criar novo comentário</h2>
+<h2>@(Model.ParentCommentId > 0 ? "Create Reply" : "Create Comment")</h2>
 
-    <form asp-action="Create" method="post" class="mt-4">
-        <div class="form-group" align="center">
-            @Html.TextBoxFor(model => model.User, new
-                { 
-                    @class = "form-control",
-                    placeholder = "Seu nome"
-                })
-            @Html.TextAreaFor(model => model.Text, new
-                {
-                    @class = "form-control",
-                    maxlength = "500",
-                    placeholder = "Comentário (máx. 500 caracteres)"
-                })
-        </div>
-        <div class="mt-4" align="center">
-            <button type="submit" class="btn btn-primary">Postar comentário</button>
-            <a href="@Url.Action("Index", "Comment")" class="btn btn-secondary">Cancelar</a>
-        </div>
-    </form>
-</div>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.ParentCommentId)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.User)
+        @Html.TextBoxFor(m => m.User, new
+           {
+               @class = "form-control",
+               placeholder = "Seu nome"
+           })
+        @Html.ValidationMessageFor(m => m.User)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Text)
+        @Html.TextAreaFor(m => m.Text, new
+            { 
+                @class = "form-control", 
+                maxlength = "500",
+                placeholder = "Comentário (máx. 500 caracteres)"
+            })
+        @Html.ValidationMessageFor(m => m.Text)
+
+    </div>
+
+    <button type="submit" class="mt-4 btn btn-primary">
+        @(Model.ParentCommentId > 0 ? "Add Reply" : "Create Comment")
+    </button>
+}
 
 

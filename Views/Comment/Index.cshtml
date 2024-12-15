@@ -13,7 +13,7 @@
                     <p class="mb-1 text-muted">Replies: @comment.RepliesCount</p>
                 </div>
                 <div class="d-flex align-items-center gap-2 m-2">
-                    <a href="#" class="text-muted" title="Reply">
+                    <a href="@Url.Action("Create", "Comment", new { parentCommentId = comment.CommentId })" class="text-muted" title="Reply">
                         <i class="bi bi-reply"></i>
                     </a>
                     <a href="/Comment/Details/@comment.CommentId" class="text-muted" title="View">
@@ -40,7 +40,7 @@
                                     <small class="text-muted">@reply.CreatedAt.ToString("g")</small>
                                 </div>
                                 <div class="d-flex align-items-center gap-2 m-2">
-                                    <a href="#" class="text-muted" title="Reply">
+                                    <a href="@Url.Action("Create", "Comment", new { parentCommentId = reply.ParentCommentId })" class="text-muted" title="Reply">
                                         <i class="bi bi-reply"></i>
                                     </a>
                                     <a href="/Comment/Details/@reply.CommentId" class="text-muted" title="View">
