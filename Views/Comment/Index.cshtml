@@ -22,7 +22,7 @@
                     <a href="@Url.Action("Edit", "Comment", new { CommentId = comment.CommentId })" class="text-muted" title="Edit">
                         <i class="bi bi-pencil"></i>
                     </a>
-                    <a href="#" class="text-muted" title="Delete" onclick="confirmDelete(@comment.CommentId)">
+                    <a href="@Url.Action("Delete", "Comment", new { CommentId = comment.CommentId })" class="text-muted" title="Delete">
                         <i class="bi bi-trash"></i>
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                                     <a href="@Url.Action("Edit", "Comment", new { CommentId = reply.CommentId })" class="text-muted" title="Edit">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="#" class="text-muted" title="Delete" onclick="confirmDelete(@reply.CommentId)">
+                                    <a href="@Url.Action("Delete", "Comment", new { CommentId = reply.CommentId })" class="text-muted" title="Delete">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>

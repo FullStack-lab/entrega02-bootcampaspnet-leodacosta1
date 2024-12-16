@@ -50,6 +50,7 @@ namespace leodacosta02.Controllers.CommentController
         {
             return View(comments);
         }
+        
         // Método GET para exibir página de criação de novo comentário / reply
         [HttpGet]
         public ActionResult Create(int? parentCommentId = null)
@@ -114,8 +115,9 @@ namespace leodacosta02.Controllers.CommentController
             }
             return View(comment);
         }
+        
         // Helper method pra procurar pelos comentários e replies
-        private CommentModel FindCommentById(int commentId, List<CommentModel> commentList)
+        private static CommentModel FindCommentById(int commentId, List<CommentModel> commentList)
         {
             foreach (var comment in commentList)
             {
@@ -136,8 +138,6 @@ namespace leodacosta02.Controllers.CommentController
 
             return null;
         }
-
-
         // Método GET -atualizado com FindCommentById- para exibir página de edição de comentários / replies
         [HttpGet]
         public ActionResult Edit(int CommentId)
@@ -149,8 +149,7 @@ namespace leodacosta02.Controllers.CommentController
             }
             return View(comment);
         }
-
-
+        //Método POST para editar comentário ou reply
         [HttpPost]
         public ActionResult Edit(CommentModel updatedComment)
         {
@@ -173,5 +172,42 @@ namespace leodacosta02.Controllers.CommentController
             return View(updatedComment); // If model validation fails, return the view with the invalid model
         }
 
+        // Método GET que abre página de confirmação antes de excluir comentário ou reply
+        [HttpGet]
+        public ActionResult Delete(int CommentId)
+        {
+            var comment = FindCommentById(CommentId, comments);
+
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+        // Método POST que exclui comentário ou reply
+        [HttpPost]
+        public ActionResult DeleteConfirmed(int CommentId)
+        {
+            var comment = FindCommentById(CommentId, comments);
+
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Se for um reply, ele é removido da lista de Replies pai
+            if (comment.ParentCommentId != 0)
+            {
+                var parent = FindCommentById((int)comment.ParentCommentId, comments);
+                parent?.Replies.Remove(comment);
+            }
+            else
+            {
+                // Se for um comentário que não é reply, remove ele da lista principal
+                comments.Remove(comment);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
