@@ -1,6 +1,6 @@
 ﻿@model leodacosta02.Models.CommentModel.CommentModel
 
-<h2>@(Model.ParentCommentId > 0 ? "Create Reply" : "Create Comment")</h2>
+<h2>@(Model.ParentCommentId > 0 ? "Adicionar resposta" : "Criar comentário")</h2>
 
 @using (Html.BeginForm())
 {
@@ -29,7 +29,7 @@
     </div>
 
     <button type="submit" class="mt-4 btn btn-primary">
-        @(Model.ParentCommentId > 0 ? "Add Reply" : "Create Comment")
+        @(Model.ParentCommentId > 0 ? "Adicionar resposta" : "Criar comentário")
     </button>
 }
 

@@ -17,7 +17,7 @@ namespace leodacosta02.Controllers.CommentController
                 {
                     CommentId = 1,
                     User = "John",
-                    Text = "This is a comment.",
+                    Text = "Este é um comentário.",
                     CreatedAt = new DateTime(2024, 12, 11, 15, 23, 0),
                     RepliesCount = 2,
                     ParentCommentId = 0,
@@ -27,7 +27,7 @@ namespace leodacosta02.Controllers.CommentController
                         {
                             CommentId = 101,
                             User = "Johnson",
-                            Text = "This is a reply.",
+                            Text = "Esta é uma resposta.",
                             CreatedAt = DateTime.Now,
                             ParentCommentId = 1,
                             RepliesCount = 0
@@ -36,7 +36,7 @@ namespace leodacosta02.Controllers.CommentController
                         {
                             CommentId = 102,
                             User = "Jackson",
-                            Text = "This is a 2nd reply.",
+                            Text = "Esta é uma segunda resposta.",
                             CreatedAt = DateTime.Now,
                             ParentCommentId = 1,
                             RepliesCount = 0
@@ -155,7 +155,7 @@ namespace leodacosta02.Controllers.CommentController
         {
            if (ModelState.IsValid)
             {
-                // Find the existing comment by its ID
+                
                 var comment = FindCommentById(updatedComment.CommentId, comments);
 
                 if (comment == null)
@@ -163,13 +163,13 @@ namespace leodacosta02.Controllers.CommentController
                     return HttpNotFound();
                 }
 
-                // Update the properties of the existing comment
+                
                 comment.Text = updatedComment.Text;
 
-                return RedirectToAction("Index"); // Redirect to the index view after successful editing
+                return RedirectToAction("Index"); 
             }
 
-            return View(updatedComment); // If model validation fails, return the view with the invalid model
+            return View(updatedComment); 
         }
 
         // Método GET que abre página de confirmação antes de excluir comentário ou reply
@@ -208,6 +208,20 @@ namespace leodacosta02.Controllers.CommentController
             }
 
             return RedirectToAction("Index");
+        }
+
+        // Método GET pra buscar detalhes de um comentário
+        [HttpGet]
+        public ActionResult Details(int CommentId)
+        {
+            var comment = FindCommentById(CommentId, comments);
+
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(comment);
         }
     }
 }

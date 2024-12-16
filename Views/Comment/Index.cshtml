@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<leodacosta02.Models.CommentModel.CommentModel>
 
-<a href="@Url.Action("Create", "Comment")" class="btn btn-primary mb-3">Create new comment</a>
+<a href="@Url.Action("Create", "Comment")" class="btn btn-primary mb-3">Criar novo comentário</a>
 <ul class="list-group">
     @foreach (var comment in Model)
     {
@@ -10,19 +10,19 @@
                     <h5 class="fw-bold">@comment.User</h5>
                     <p class="mb-1">@comment.Text</p>
                     <small class="text-muted">@comment.CreatedAt.ToString("g")</small>
-                    <p class="mb-1 text-muted">Replies: @comment.RepliesCount</p>
+                    <p class="mb-1 text-muted">Respostas: @comment.RepliesCount</p>
                 </div>
                 <div class="d-flex align-items-center gap-2 m-2">
-                    <a href="@Url.Action("Create", "Comment", new { parentCommentId = comment.CommentId })" class="text-muted" title="Reply">
+                    <a href="@Url.Action("Create", "Comment", new { parentCommentId = comment.CommentId })" class="text-muted" title="Reponder">
                         <i class="bi bi-reply"></i>
                     </a>
-                    <a href="/Comment/Details/@comment.CommentId" class="text-muted" title="View">
+                    <a href="@Url.Action("Details", "Comment", new { CommentId = comment.CommentId })" class="text-muted" title="Detalhes">
                         <i class="bi bi-eye"></i>
                     </a>
-                    <a href="@Url.Action("Edit", "Comment", new { CommentId = comment.CommentId })" class="text-muted" title="Edit">
+                    <a href="@Url.Action("Edit", "Comment", new { CommentId = comment.CommentId })" class="text-muted" title="Editar">
                         <i class="bi bi-pencil"></i>
                     </a>
-                    <a href="@Url.Action("Delete", "Comment", new { CommentId = comment.CommentId })" class="text-muted" title="Delete">
+                    <a href="@Url.Action("Delete", "Comment", new { CommentId = comment.CommentId })" class="text-muted" title="Excluir">
                         <i class="bi bi-trash"></i>
                     </a>
                 </div>
@@ -40,16 +40,16 @@
                                     <small class="text-muted">@reply.CreatedAt.ToString("g")</small>
                                 </div>
                                 <div class="d-flex align-items-center gap-2 m-2">
-                                    <a href="@Url.Action("Create", "Comment", new { parentCommentId = reply.ParentCommentId })" class="text-muted" title="Reply">
+                                    <a href="@Url.Action("Create", "Comment", new { parentCommentId = reply.ParentCommentId })" class="text-muted" title="Responder">
                                         <i class="bi bi-reply"></i>
                                     </a>
-                                    <a href="/Comment/Details/@reply.CommentId" class="text-muted" title="View">
+                                    <a href="@Url.Action("Details", "Comment", new {CommentId = reply.CommentId })" class="text-muted" title="Detalhes">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="@Url.Action("Edit", "Comment", new { CommentId = reply.CommentId })" class="text-muted" title="Edit">
+                                    <a href="@Url.Action("Edit", "Comment", new { CommentId = reply.CommentId })" class="text-muted" title="Editar">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="@Url.Action("Delete", "Comment", new { CommentId = reply.CommentId })" class="text-muted" title="Delete">
+                                    <a href="@Url.Action("Delete", "Comment", new { CommentId = reply.CommentId })" class="text-muted" title="Excluir">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>
