@@ -1,0 +1,24 @@
+﻿@model leodacosta02.Models.CommentModel.CommentModel
+<h2>@(Model.ParentCommentId > 0 ? "Edit Reply" : "Edit Comment")</h2>
+@using (Html.BeginForm("Edit", "Comment", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.CommentId)
+    @Html.HiddenFor(m => m.ParentCommentId)
+    @Html.HiddenFor(m => m.User) // Add this to ensure User is preserved
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Text)
+        @Html.TextAreaFor(m => m.Text, new
+            {
+                @class = "form-control",
+                maxlength = "500",
+                placeholder = "Comentário (máx. 500 caracteres)"
+            })
+        @Html.ValidationMessageFor(m => m.Text)
+    </div>
+    <button type="submit" class="mt-4 btn btn-primary">
+        @(Model.ParentCommentId > 0 ? "Edit Reply" : "Edit Comment")
+    </button>
+}
+
+

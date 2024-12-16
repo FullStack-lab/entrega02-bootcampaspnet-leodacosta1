@@ -19,7 +19,7 @@
                     <a href="/Comment/Details/@comment.CommentId" class="text-muted" title="View">
                         <i class="bi bi-eye"></i>
                     </a>
-                    <a href="#" class="text-muted" title="Edit" data-bs-toggle="modal" data-bs-target="#editCommentModal">
+                    <a href="@Url.Action("Edit", "Comment", new { CommentId = comment.CommentId })" class="text-muted" title="Edit">
                         <i class="bi bi-pencil"></i>
                     </a>
                     <a href="#" class="text-muted" title="Delete" onclick="confirmDelete(@comment.CommentId)">
@@ -46,7 +46,7 @@
                                     <a href="/Comment/Details/@reply.CommentId" class="text-muted" title="View">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="#" class="text-muted" title="Edit" data-bs-toggle="modal" data-bs-target="#editReplyModal">
+                                    <a href="@Url.Action("Edit", "Comment", new { CommentId = reply.CommentId })" class="text-muted" title="Edit">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <a href="#" class="text-muted" title="Delete" onclick="confirmDelete(@reply.CommentId)">

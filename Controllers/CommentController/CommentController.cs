@@ -50,7 +50,7 @@ namespace leodacosta02.Controllers.CommentController
         {
             return View(comments);
         }
-        // Página pra criação de novo comentário
+        // Método GET para exibir página de criação de novo comentário / reply
         [HttpGet]
         public ActionResult Create(int? parentCommentId = null)
         {
@@ -60,7 +60,7 @@ namespace leodacosta02.Controllers.CommentController
             };
             return View(comment);
         }
-        // método para criação de comentários e replies
+        // Método POST para criação de comentários e replies
         [HttpPost]
         public ActionResult Create(CommentModel comment)
         {
@@ -114,5 +114,64 @@ namespace leodacosta02.Controllers.CommentController
             }
             return View(comment);
         }
+        // Helper method pra procurar pelos comentários e replies
+        private CommentModel FindCommentById(int commentId, List<CommentModel> commentList)
+        {
+            foreach (var comment in commentList)
+            {
+                if (comment.CommentId == commentId)
+                {
+                    return comment;
+                }
+
+                if (comment.Replies != null && comment.Replies.Count > 0)
+                {
+                    var foundReply = FindCommentById(commentId, comment.Replies);
+                    if (foundReply != null)
+                    {
+                        return foundReply;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+
+        // Método GET -atualizado com FindCommentById- para exibir página de edição de comentários / replies
+        [HttpGet]
+        public ActionResult Edit(int CommentId)
+        {
+            var comment = FindCommentById(CommentId, comments);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(comment);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(CommentModel updatedComment)
+        {
+           if (ModelState.IsValid)
+            {
+                // Find the existing comment by its ID
+                var comment = FindCommentById(updatedComment.CommentId, comments);
+
+                if (comment == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Update the properties of the existing comment
+                comment.Text = updatedComment.Text;
+
+                return RedirectToAction("Index"); // Redirect to the index view after successful editing
+            }
+
+            return View(updatedComment); // If model validation fails, return the view with the invalid model
+        }
+
     }
 }
